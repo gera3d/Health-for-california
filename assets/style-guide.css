@@ -1,0 +1,248 @@
+/* Health for California - Brand Style Guide CSS */
+
+/* =================================================================
+   COLOR PALETTE
+   ================================================================= */
+
+:root {
+  /* Primary Colors - Blues (Trust, Healthcare) */
+  --hfc-dark-blue: #0f314e;      /* Main body text, headers */
+  --hfc-blue: #1e65a0;           /* Paragraph text, secondary headers */
+  --hfc-light-blue: #6293bd;     /* Links, accent elements */
+  
+  /* Action Colors - CTAs */
+  --hfc-red: #fa5f5b;            /* Primary CTA buttons (Shop & Compare) */
+  --hfc-red-ring: #ef4444;       /* Button rings, hover states */
+  --hfc-yellow: #eab308;         /* Secondary CTA hover states */
+  
+  /* Neutrals */
+  --hfc-white: #ffffff;          /* Backgrounds, button text on color */
+  --hfc-black: #000000;          /* When needed for maximum contrast */
+  
+  /* Background shades */
+  --hfc-gray-light: #f8fafc;     /* Light section backgrounds */
+  --hfc-gray-medium: #e2e8f0;    /* Borders, dividers */
+  
+  /* Transparency */
+  --hfc-overlay-dark: rgba(15, 49, 78, 0.7);  /* Dark overlay on hero images */
+  --hfc-overlay-light: rgba(255, 255, 255, 0.9);  /* Light card overlays */
+}
+
+/* =================================================================
+   TYPOGRAPHY
+   ================================================================= */
+
+/* Font Import */
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+:root {
+  --font-primary: 'Raleway', sans-serif;
+  
+  /* Font Sizes */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+  --text-5xl: 3rem;
+  
+  /* Font Weights */
+  --font-light: 300;
+  --font-regular: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+  --font-extrabold: 800;
+}
+
+body {
+  font-family: var(--font-primary);
+  font-size: var(--text-base);
+  font-weight: var(--font-regular);
+  color: var(--hfc-dark-blue);
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-primary);
+  font-weight: var(--font-bold);
+  color: var(--hfc-dark-blue);
+  line-height: 1.2;
+}
+
+p {
+  color: var(--hfc-blue);
+}
+
+a {
+  color: var(--hfc-light-blue);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--hfc-blue);
+}
+
+/* =================================================================
+   BUTTONS
+   ================================================================= */
+
+.btn {
+  font-family: var(--font-primary);
+  font-weight: var(--font-semibold);
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Primary CTA - Red/Salmon */
+.btn-primary {
+  background-color: var(--hfc-red);
+  border: 2px solid var(--hfc-red);
+  color: var(--hfc-white);
+}
+
+.btn-primary:hover {
+  background-color: var(--hfc-red-ring);
+  border-color: var(--hfc-red-ring);
+  box-shadow: 0 4px 12px rgba(250, 95, 91, 0.4);
+}
+
+/* Secondary CTA - Outline */
+.btn-secondary {
+  background-color: transparent;
+  border: 2px solid var(--hfc-white);
+  color: var(--hfc-white);
+}
+
+.btn-secondary:hover {
+  background-color: var(--hfc-yellow);
+  border-color: var(--hfc-yellow);
+  color: var(--hfc-dark-blue);
+}
+
+/* Ring Button Style */
+.btn-ring {
+  background-color: transparent;
+  border: 3px solid var(--hfc-red-ring);
+  color: var(--hfc-white);
+  box-shadow: 0 0 0 3px var(--hfc-red-ring);
+}
+
+.btn-ring:hover {
+  background-color: var(--hfc-yellow);
+  border-color: var(--hfc-yellow);
+  box-shadow: 0 0 0 3px var(--hfc-yellow);
+}
+
+/* =================================================================
+   SPACING
+   ================================================================= */
+
+:root {
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+}
+
+/* =================================================================
+   SHADOWS & EFFECTS
+   ================================================================= */
+
+:root {
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
+  
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+  --radius-full: 9999px;
+}
+
+/* =================================================================
+   HERO SECTIONS
+   ================================================================= */
+
+.hero {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  min-height: 500px;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--hfc-overlay-dark);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  color: var(--hfc-white);
+}
+
+/* =================================================================
+   CARDS
+   ================================================================= */
+
+.card {
+  background: var(--hfc-white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: var(--space-6);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl);
+}
+
+/* =================================================================
+   FORMS
+   ================================================================= */
+
+.form-input {
+  font-family: var(--font-primary);
+  font-size: var(--text-base);
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--hfc-gray-medium);
+  border-radius: var(--radius-md);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  width: 100%;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--hfc-light-blue);
+  box-shadow: 0 0 0 3px rgba(98, 147, 189, 0.2);
+}
+
+.form-label {
+  font-weight: var(--font-medium);
+  color: var(--hfc-dark-blue);
+  margin-bottom: var(--space-2);
+  display: block;
+}

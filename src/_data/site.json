@@ -1,0 +1,22 @@
+{
+  "name": "Health for California",
+  "tagline": "Fast, Feasible, and Free",
+  "url": "https://www.healthforcalifornia.com",
+  "phone": "1-800-555-0199",
+  "phoneFormatted": "(800) 555-0199",
+  "year": "2024",
+  "companyAge": "20+",
+  "colors": {
+    "darkBlue": "#0f314e",
+    "blue": "#1e65a0",
+    "lightBlue": "#6293bd",
+    "red": "#fa5f5b",
+    "yellow": "#eab308"
+  },
+  "trustBadges": [
+    "A+ BBB Rated",
+    "Covered California Certified",
+    "Licensed CA Insurance Agents",
+    "Serving Californians Since 2004"
+  ]
+}
