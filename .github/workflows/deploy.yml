@@ -32,7 +32,7 @@ jobs:
         run: npm ci
 
       - name: Build Eleventy
-        run: npx @11ty/eleventy
+        run: npx @11ty/eleventy --pathprefix=/Health-for-california/
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
