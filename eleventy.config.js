@@ -14,6 +14,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addWatchTarget("src/css/");
 
   return {
+    pathPrefix: "/Health-for-california/",
     dir: {
       input: "src",
       output: "_site",
