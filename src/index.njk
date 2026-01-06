@@ -28,6 +28,66 @@ permalink: /
 <!-- Hero Section -->
 <section class="hero" id="hero" style="background-image: url('{{ '/images/images/hero_family_hd.png' | url }}');">
   
+  <!-- Image Switcher Panel for Demo -->
+  <div class="hero-image-switcher" id="heroSwitcher">
+    <div class="switcher-header">
+      <span>🖼️ Hero Image</span>
+      <button class="switcher-toggle" onclick="this.parentElement.parentElement.classList.toggle('collapsed')">−</button>
+    </div>
+    <div class="switcher-options">
+      <button class="switcher-btn active" onclick="switchHeroImage('{{ '/images/images/hero_option_1.jpg' | url }}', this)">Option 1</button>
+      <button class="switcher-btn" onclick="switchHeroImage('{{ '/images/images/hero_option_2.jpg' | url }}', this)">Option 2</button>
+      <button class="switcher-btn" onclick="switchHeroImage('{{ '/images/images/hero_option_3.jpg' | url }}', this)">Option 3</button>
+      <button class="switcher-btn" onclick="switchHeroImage('{{ '/images/images/family_stock_hd.jpg' | url }}', this)">Family</button>
+      <button class="switcher-btn" onclick="switchHeroImage('{{ '/images/images/cinematic_hero_hd.png' | url }}', this)">Cinematic</button>
+      <button class="switcher-btn" onclick="switchHeroImage('{{ '/images/images/premium_hero.png' | url }}', this)">Premium</button>
+      <button class="switcher-btn" onclick="switchHeroImage('{{ '/images/images/doctor.webp' | url }}', this)">Doctor</button>
+      <button class="switcher-btn" onclick="switchHeroImage('{{ '/images/images/skating.webp' | url }}', this)">Skating</button>
+      <button class="switcher-btn" onclick="switchHeroImage('{{ '/images/images/hero_family_4k.png' | url }}', this)">Family 4K</button>
+    </div>
+    <div class="switcher-position">
+      <span>Position:</span>
+      <button class="pos-btn" onclick="setHeroPosition('0% 0%', this)">↖</button>
+      <button class="pos-btn" onclick="setHeroPosition('50% 0%', this)">↑</button>
+      <button class="pos-btn" onclick="setHeroPosition('100% 0%', this)">↗</button>
+      <button class="pos-btn" onclick="setHeroPosition('0% 50%', this)">←</button>
+      <button class="pos-btn active" onclick="setHeroPosition('50% 50%', this)">⬤</button>
+      <button class="pos-btn" onclick="setHeroPosition('100% 50%', this)">→</button>
+      <button class="pos-btn" onclick="setHeroPosition('0% 100%', this)">↙</button>
+      <button class="pos-btn" onclick="setHeroPosition('50% 100%', this)">↓</button>
+      <button class="pos-btn" onclick="setHeroPosition('100% 100%', this)">↘</button>
+    </div>
+    <div class="switcher-scale">
+      <span>Scale:</span>
+      <button class="scale-btn" onclick="setHeroScale('cover', this)">Cover</button>
+      <button class="scale-btn active" onclick="setHeroScale('150%', this)">150%</button>
+      <button class="scale-btn" onclick="setHeroScale('200%', this)">200%</button>
+    </div>
+  </div>
+
+  <script>
+    // Initialize with 150% scale so positions work
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('hero').style.backgroundSize = '150%';
+    });
+    
+    function switchHeroImage(src, btn) {
+      document.getElementById('hero').style.backgroundImage = `url('${src}')`;
+      document.querySelectorAll('.switcher-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+    function setHeroPosition(pos, btn) {
+      document.getElementById('hero').style.backgroundPosition = pos;
+      document.querySelectorAll('.pos-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+    function setHeroScale(size, btn) {
+      document.getElementById('hero').style.backgroundSize = size;
+      document.querySelectorAll('.scale-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+  </script>
+  
   
   <div class="container">
     <div class="hero-content">
