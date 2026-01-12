@@ -5,28 +5,38 @@ description: Compare affordable health insurance plans in California. Get your f
 permalink: /
 ---
 
-<!-- Header -->
-<header class="header">
-  <div class="container">
-    <div class="header-inner">
-      <div class="logo-group">
-        <a href="/" class="header-logo-link">
-          <img src="https://d10gtkdu15197w.cloudfront.net/latest/assets/img/logos/hfc.png" alt="{{ site.name }}" class="logo">
-        </a>
-        <div class="logo-divider"></div>
-        <img src="{{ '/images/logos/cov_cal_200.png' | url }}" alt="Covered California" class="logo-covered-ca">
-      </div>
-      <a href="tel:{{ site.phone }}" class="header-phone">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 0 0-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/></svg>
-        <span class="phone-label">Call Us: </span>
-        <span class="phone-number">{{ site.phoneFormatted }}</span>
+<header class="primary-header">
+  <div class="header-inner">
+    
+    <!-- Logo Group -->
+    <div class="header-logo-group">
+      <a href="/" class="logo-link">
+        <img src="https://d10gtkdu15197w.cloudfront.net/latest/assets/img/logos/hfc_stack.png" alt="Health for California" class="logo-hfc">
+      </a>
+      <div class="logo-divider"></div>
+      <a href="http://www.coveredca.com/" target="_blank" rel="noopener">
+        <img src="https://d10gtkdu15197w.cloudfront.net/latest/assets/img/logos/cov_cal.png" alt="Covered California" class="logo-cc">
       </a>
     </div>
+
+    <!-- Action Group (Search, Shop, Call) -->
+    <div class="header-actions">
+
+
+
+
+      <!-- Call Us Pill -->
+      <a href="tel:1-800-555-0199" class="btn-pill">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 512 512" fill="currentColor" class="icon-phone"><path d="M493.4 24.6l-104-24c-11.3-2.6-22.9 3.3-27.5 13.9l-48 112c-4.2 9.8-1.4 21.3 6.9 27.4l43.9 32.8c-28.7 54.6-70.7 96.6-125.4 125.4l-32.8-43.9c-6.1-8.3-17.6-11.1-27.4-6.9l-112 48C28.3 314.1 22.4 325.7 25 337l24 104C51.6 476.3 83.2 512 128 512c212 0 384-172 384-384 0-44.8-35.7-76.4-71-76.4z"/></svg>
+        Call Us: 1-800-555-0199
+      </a>
+    </div>
+
   </div>
 </header>
 
 <!-- Hero Section -->
-<section class="hero" id="hero" style="background-image: url('{{ '/images/images/hero_family_hd.png' | url }}');">
+<section class="hero" id="hero" style="background-image: url('{{ '/images/images/hero_family_4k.png' | url }}');">
   
   <!-- Image Switcher Panel for Demo -->
   <div class="hero-image-switcher" id="heroSwitcher">
@@ -35,7 +45,7 @@ permalink: /
       <button class="switcher-toggle" onclick="this.parentElement.parentElement.classList.toggle('collapsed')">−</button>
     </div>
     <div class="switcher-options">
-      <button class="switcher-btn active" onclick="switchHeroImage('{{ '/images/images/hero_option_1.jpg' | url }}', this)">Option 1</button>
+      <button class="switcher-btn" onclick="switchHeroImage('{{ '/images/images/hero_option_1.jpg' | url }}', this)">Option 1</button>
       <button class="switcher-btn" onclick="switchHeroImage('{{ '/images/images/hero_option_2.jpg' | url }}', this)">Option 2</button>
       <button class="switcher-btn" onclick="switchHeroImage('{{ '/images/images/hero_option_3.jpg' | url }}', this)">Option 3</button>
       <button class="switcher-btn" onclick="switchHeroImage('{{ '/images/images/family_stock_hd.jpg' | url }}', this)">Family</button>
@@ -43,7 +53,7 @@ permalink: /
       <button class="switcher-btn" onclick="switchHeroImage('{{ '/images/images/premium_hero.png' | url }}', this)">Premium</button>
       <button class="switcher-btn" onclick="switchHeroImage('{{ '/images/images/doctor.webp' | url }}', this)">Doctor</button>
       <button class="switcher-btn" onclick="switchHeroImage('{{ '/images/images/skating.webp' | url }}', this)">Skating</button>
-      <button class="switcher-btn" onclick="switchHeroImage('{{ '/images/images/hero_family_4k.png' | url }}', this)">Family 4K</button>
+      <button class="switcher-btn active" onclick="switchHeroImage('{{ '/images/images/hero_family_4k.png' | url }}', this)">Family 4K</button>
     </div>
     <div class="switcher-position">
       <span>Position:</span>
@@ -59,16 +69,16 @@ permalink: /
     </div>
     <div class="switcher-scale">
       <span>Scale:</span>
-      <button class="scale-btn" onclick="setHeroScale('cover', this)">Cover</button>
-      <button class="scale-btn active" onclick="setHeroScale('150%', this)">150%</button>
+      <button class="scale-btn active" onclick="setHeroScale('cover', this)">Cover</button>
+      <button class="scale-btn" onclick="setHeroScale('150%', this)">150%</button>
       <button class="scale-btn" onclick="setHeroScale('200%', this)">200%</button>
     </div>
   </div>
 
   <script>
-    // Initialize with 150% scale so positions work
+    // Initialize with cover scale so it fits nicely
     document.addEventListener('DOMContentLoaded', function() {
-      document.getElementById('hero').style.backgroundSize = '150%';
+      document.getElementById('hero').style.backgroundSize = 'cover';
     });
     
     function switchHeroImage(src, btn) {
@@ -93,18 +103,17 @@ permalink: /
     <div class="hero-content">
       <!-- Left: Hero Text -->
       <div class="hero-text animate-fade-in">
-        <div class="hero-badge">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
-          Covered California Certified • A+ BBB Rating
-        </div>
+
         <a href="tel:{{ site.phone }}" class="mobile-phone-cta">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 0 0-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/></svg>
           {{ site.phoneFormatted }}
         </a>
         
-        <h1>Affordable Health Insurance Made Simple</h1>
+        <h1>Affordable Health Insurance <br> <span class="text-highlight" id="highlight-1">Made Simple</span></h1>
         
-        <p>Compare top California health plans in seconds. See your subsidy savings instantly. No email or phone required.</p>
+        <p>Compare top California health plans in seconds.<br>
+        <span class="text-highlight" id="highlight-2">See your subsidy savings instantly.</span><br>
+        No email or phone required.</p>
         
         <!-- Social Proof -->
         <div class="hero-social-proof">
@@ -190,10 +199,12 @@ permalink: /
                 <label class="form-label-sm">Gender</label>
                 <div class="gender-toggle compact" id="primary-gender-toggle">
                   <button type="button" class="gender-btn compact" data-value="male">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M9.5 11c1.93 0 3.5 1.57 3.5 3.5S11.43 18 9.5 18 6 16.43 6 14.5 7.57 11 9.5 11zm0-2C6.46 9 4 11.46 4 14.5S6.46 20 9.5 20s5.5-2.46 5.5-5.5c0-1.16-.36-2.24-.97-3.12L18 7.42V10h2V4h-6v2h2.58l-3.97 3.97C11.73 9.36 10.65 9 9.5 9z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                    <span>Male</span>
                   </button>
                   <button type="button" class="gender-btn compact" data-value="female">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M12 4c2.76 0 5 2.24 5 5s-2.24 5-5 5-5-2.24-5-5 2.24-5 5-5zm0-2C8.13 2 5 5.13 5 9c0 3.09 2.01 5.71 4.8 6.63L9 17h2v2H9v2h6v-2h-2v-2h2l-.8-1.37C16.99 14.71 19 12.09 19 9c0-3.87-3.13-7-7-7z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                    <span>Female</span>
                   </button>
                 </div>
                 <input type="hidden" name="primary_gender" id="primary_gender" required>
@@ -223,15 +234,7 @@ permalink: /
               </div>
             </div>
             
-            <!-- Primary Coverage Toggle - Visible on next line -->
-            <div class="form-group compact-group" id="primary-coverage-group">
-              <label class="form-label-sm">Need coverage?</label>
-              <div class="yes-no-toggle compact" id="primary-coverage-toggle">
-                <button type="button" class="toggle-btn compact" data-value="yes">Yes</button>
-                <button type="button" class="toggle-btn compact" data-value="no">No</button>
-              </div>
-              <input type="hidden" name="primary_needs_coverage" id="primary_needs_coverage" required>
-            </div>
+
           </div>
           
           <!-- Add Family Member Buttons -->
@@ -292,7 +295,6 @@ permalink: /
           
           <button type="submit" class="btn btn-primary btn-submit btn-disabled" id="submit-btn" disabled>
             Get Quotes Online
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
           </button>
           
           <div class="form-trust compact">
@@ -300,6 +302,19 @@ permalink: /
             Secure & Free
           </div>
         </form>
+      </div>
+    </div>
+    
+    <!-- Carriers Section (inside hero) -->
+    <div class="hero-carriers">
+      <p class="carriers-title">Compare Plans from Top California Carriers</p>
+      <div class="carriers-grid">
+        <div class="carrier-item"><img src="https://s3-us-west-1.amazonaws.com/hp-prod-wp-data/content/uploads/kaiser-small.png" alt="Kaiser Permanente"></div>
+        <div class="carrier-item"><img src="https://s3-us-west-1.amazonaws.com/hp-prod-wp-data/content/uploads/anthem-small.png" alt="Anthem Blue Cross"></div>
+        <div class="carrier-item"><img src="https://s3-us-west-1.amazonaws.com/hp-prod-wp-data/content/uploads/blue-of-california-small.png" alt="Blue Shield of California"></div>
+        <div class="carrier-item"><img src="https://s3-us-west-1.amazonaws.com/hp-prod-wp-data/content/uploads/healthnet-small.png" alt="Health Net"></div>
+        <div class="carrier-item carrier-oscar"><img src="https://hp-prod-wp-data.s3.us-west-1.amazonaws.com/content/uploads/oscar-logo.jpg" alt="Oscar Health"></div>
+        <div class="carrier-item"><img src="https://s3-us-west-1.amazonaws.com/hp-prod-wp-data/content/uploads/molina-small.png" alt="Molina Healthcare"></div>
       </div>
     </div>
   </div>
@@ -317,86 +332,37 @@ permalink: /
     <p class="text-center" style="max-width: 600px; margin: 0 auto var(--space-2xl);">We make finding the right health insurance simple, fast, and completely free.</p>
     
     <div class="features-grid">
+      {% set features = [
+        {
+          title: "Instant Quotes",
+          text: "Get <strong class='text-highlight-blue'>accurate quotes in seconds</strong>. No waiting, no phone calls required. See your options immediately.",
+          iconPath: "M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"
+        },
+        {
+          title: "Same Low Prices",
+          text: "Pay the <strong class='text-highlight-blue'>same price</strong> as going direct to the carrier. Our service is <strong class='text-highlight-blue'>completely free</strong> to you.",
+          iconPath: "M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"
+        },
+        {
+          title: "Expert Guidance",
+          text: "<strong class='text-highlight-blue'>Licensed California agents</strong> ready to help you find the perfect plan for your needs and budget.",
+          iconPath: "M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+        }
+      ] %}
+
+      {% for feature in features %}
       <div class="feature-card">
         <div class="feature-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="{{ feature.iconPath }}"/></svg>
         </div>
-        <h3>Instant Quotes</h3>
-        <p>Get accurate quotes in seconds. No waiting, no phone calls required. See your options immediately.</p>
+        <h3>{{ feature.title }}</h3>
+        <p>{{ feature.text | safe }}</p>
       </div>
-      
-      <div class="feature-card">
-        <div class="feature-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg>
-        </div>
-        <h3>Same Low Prices</h3>
-        <p>Pay the same price as going direct to the carrier. Our service is completely free to you.</p>
-      </div>
-      
-      <div class="feature-card">
-        <div class="feature-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-        </div>
-        <h3>Expert Guidance</h3>
-        <p>Licensed California agents ready to help you find the perfect plan for your needs and budget.</p>
-      </div>
+      {% endfor %}
     </div>
   </div>
 </section>
 
-<!-- How It Works Section -->
-<section class="section how-it-works">
-  <div class="container">
-    <div class="section-header text-center">
-      <h2 class="text-gradient">3 Simple Steps to Coverage</h2>
-      <p>We've stripped away the complexity. Here is how easy it is.</p>
-    </div>
-    
-    <div class="steps-grid">
-      <div class="step-card">
-        <div class="step-num">01</div>
-        <div class="step-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-        </div>
-        <h3>Enter Your Zip</h3>
-        <p>Tell us where you live in California so we can find plans available in your area.</p>
-      </div>
-      
-      <div class="step-card">
-        <div class="step-num">02</div>
-        <div class="step-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1s-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
-        </div>
-        <h3>Compare & Save</h3>
-        <p>See real prices from top carriers. We'll automatically show your subsidy savings.</p>
-      </div>
-      
-      <div class="step-card">
-        <div class="step-num">03</div>
-        <div class="step-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-        </div>
-        <h3>Get Covered</h3>
-        <p>Apply online or speak with a licensed agent to finalize your enrollment for free.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Carriers Section -->
-<section class="section carriers">
-  <div class="container">
-    <p class="carriers-title">Compare Plans from Top California Carriers</p>
-    <div class="carriers-grid">
-      <div class="carrier-item"><img src="https://s3-us-west-1.amazonaws.com/hp-prod-wp-data/content/uploads/kaiser-small.png" alt="Kaiser Permanente"></div>
-      <div class="carrier-item"><img src="https://s3-us-west-1.amazonaws.com/hp-prod-wp-data/content/uploads/anthem-small.png" alt="Anthem Blue Cross"></div>
-      <div class="carrier-item"><img src="https://s3-us-west-1.amazonaws.com/hp-prod-wp-data/content/uploads/blue-of-california-small.png" alt="Blue Shield of California"></div>
-      <div class="carrier-item"><img src="https://s3-us-west-1.amazonaws.com/hp-prod-wp-data/content/uploads/healthnet-small.png" alt="Health Net"></div>
-      <div class="carrier-item"><img src="https://hp-prod-wp-data.s3.us-west-1.amazonaws.com/content/uploads/oscar-logo.jpg" alt="Oscar Health"></div>
-      <div class="carrier-item"><img src="https://s3-us-west-1.amazonaws.com/hp-prod-wp-data/content/uploads/molina-small.png" alt="Molina Healthcare"></div>
-    </div>
-  </div>
-</section>
 
 <!-- Testimonials Section -->
 <section class="section testimonials">
@@ -490,8 +456,6 @@ permalink: /
       </div>
     </div>
   </div>
-</section>
-
 </section>
 
 <!-- FAQ Section -->

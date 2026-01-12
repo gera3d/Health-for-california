@@ -2,6 +2,26 @@
 
 document.addEventListener('DOMContentLoaded', function () {
     // =================================================================
+    // HERO HIGHLIGHT ANIMATION - Staggered Swipe-Right Reveal
+    // Order: Made Simple → See your subsidy savings → Form loads in
+    // =================================================================
+    window.addEventListener('load', function () {
+        // First highlight: "Made Simple" - reveals at 1.5s after load
+        setTimeout(function () {
+            const highlight1 = document.getElementById('highlight-1');
+            if (highlight1) highlight1.classList.add('active');
+        }, 1500);
+
+        // Second highlight: "See your subsidy savings instantly" - reveals at 3.5s after load
+        setTimeout(function () {
+            const highlight2 = document.getElementById('highlight-2');
+            if (highlight2) highlight2.classList.add('active');
+        }, 3500);
+
+        // Note: Form slides in at 5.5s (handled via CSS animation delay)
+    });
+
+    // =================================================================
     // QUOTE FORM - Flat Progressive Disclosure (HFC Style)
     // =================================================================
 
@@ -55,23 +75,34 @@ document.addEventListener('DOMContentLoaded', function () {
         // =================================================================
 
         function setupDOBFields() {
+            const dobContainer = document.querySelector('#primary-section .dob-inputs');
             const dobFields = document.querySelectorAll('#primary-section .dob-field');
+
             dobFields.forEach(field => {
                 field.addEventListener('input', function (e) {
                     this.value = this.value.replace(/\D/g, '');
 
                     const maxLength = parseInt(this.getAttribute('maxlength'));
 
-                    // Add valid class when field is complete
+                    // Auto-tab to next field when complete
                     if (this.value.length >= maxLength) {
-                        this.classList.add('valid');
                         const next = this.nextElementSibling?.nextElementSibling;
                         if (next && next.classList.contains('dob-field')) {
                             next.focus();
                         }
-                    } else {
-                        this.classList.remove('valid');
                     }
+
+                    // Check if all DOB fields are complete - add valid to container
+                    const month = document.getElementById('primary-dob-month').value;
+                    const day = document.getElementById('primary-dob-day').value;
+                    const year = document.getElementById('primary-dob-year').value;
+
+                    if (month.length === 2 && day.length === 2 && year.length === 4) {
+                        dobContainer.classList.add('valid');
+                    } else {
+                        dobContainer.classList.remove('valid');
+                    }
+
                     checkPrimaryInfoComplete();
                 });
             });
@@ -127,7 +158,6 @@ document.addEventListener('DOMContentLoaded', function () {
             const day = document.getElementById('primary-dob-day').value;
             const year = document.getElementById('primary-dob-year').value;
             const zip = document.getElementById('zipcode').value;
-            const coverage = document.getElementById('primary_needs_coverage').value;
 
             const dobComplete = month.length === 2 && day.length === 2 && year.length === 4;
             const zipValid = window.isValidCAZip && window.isValidCAZip(zip);
@@ -144,7 +174,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             }
 
-            if (gender && dobComplete && zipValid && coverage && !formState.primaryInfoComplete) {
+            if (gender && dobComplete && zipValid && !formState.primaryInfoComplete) {
                 formState.primaryInfoComplete = true;
 
                 // Show primary section checkmark
@@ -462,10 +492,12 @@ document.addEventListener('DOMContentLoaded', function () {
                         <label class="form-label-sm">Gender</label>
                         <div class="gender-toggle compact" id="member-gender-${memberId}">
                             <button type="button" class="gender-btn compact" data-value="male">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M9.5 11c1.93 0 3.5 1.57 3.5 3.5S11.43 18 9.5 18 6 16.43 6 14.5 7.57 11 9.5 11zm0-2C6.46 9 4 11.46 4 14.5S6.46 20 9.5 20s5.5-2.46 5.5-5.5c0-1.16-.36-2.24-.97-3.12L18 7.42V10h2V4h-6v2h2.58l-3.97 3.97C11.73 9.36 10.65 9 9.5 9z"/></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                                <span>Male</span>
                             </button>
                             <button type="button" class="gender-btn compact" data-value="female">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M12 4c2.76 0 5 2.24 5 5s-2.24 5-5 5-5-2.24-5-5 2.24-5 5-5zm0-2C8.13 2 5 5.13 5 9c0 3.09 2.01 5.71 4.8 6.63L9 17h2v2H9v2h6v-2h-2v-2h2l-.8-1.37C16.99 14.71 19 12.09 19 9c0-3.87-3.13-7-7-7z"/></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                                <span>Female</span>
                             </button>
                         </div>
                     </div>
@@ -499,16 +531,28 @@ document.addEventListener('DOMContentLoaded', function () {
                     this.value = this.value.replace(/\D/g, '');
                     const maxLength = parseInt(this.getAttribute('maxlength'));
 
-                    // Add valid class when field is complete
+                    // Auto-tab logic
                     if (this.value.length >= maxLength) {
-                        this.classList.add('valid');
                         const next = this.nextElementSibling?.nextElementSibling;
                         if (next && next.classList.contains('dob-field')) {
                             next.focus();
                         }
-                    } else {
-                        this.classList.remove('valid');
                     }
+
+                    // Check if all DOB fields in this section are valid
+                    const container = this.closest('.dob-inputs');
+                    if (container) {
+                        const month = container.querySelector('.dob-month').value;
+                        const day = container.querySelector('.dob-day').value;
+                        const year = container.querySelector('.dob-year').value;
+
+                        if (month.length === 2 && day.length === 2 && year.length === 4) {
+                            container.classList.add('valid');
+                        } else {
+                            container.classList.remove('valid');
+                        }
+                    }
+
                     validateForm();
                 });
             });
@@ -576,11 +620,6 @@ document.addEventListener('DOMContentLoaded', function () {
             if (!window.isValidCAZip || !window.isValidCAZip(zip)) {
                 isValid = false;
                 errors.push('Enter valid California zip code');
-            }
-            // Check primary coverage
-            const coverage = document.getElementById('primary_needs_coverage').value;
-            if (!coverage) {
-                isValid = false;
             }
 
             // Check start date (must be selected)
@@ -663,7 +702,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     gender: document.getElementById('primary_gender').value,
                     dob: `${document.getElementById('primary-dob-year').value}-${document.getElementById('primary-dob-month').value}-${document.getElementById('primary-dob-day').value}`,
                     zipcode: document.getElementById('zipcode').value,
-                    needsCoverage: document.getElementById('primary_needs_coverage').value || 'yes'
+                    needsCoverage: 'yes'
                 },
                 startDate: document.querySelector('.start-date-btn.active')?.dataset.value,
                 wantsDiscount: document.getElementById('wants_discount').value,
