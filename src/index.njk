@@ -38,11 +38,15 @@ permalink: /
 <!-- Hero Section -->
 <section class="hero" id="hero" style="background-image: url('{{ '/images/images/hero_family_4k.png' | url }}');">
   
-  <!-- Image Switcher Panel for Demo -->
-  <div class="hero-image-switcher" id="heroSwitcher">
+  <!-- Image Switcher Panel for Demo - starts hidden, click + to open -->
+  <div class="hero-image-switcher collapsed" id="heroSwitcher">
     <div class="switcher-header">
       <span>🖼️ Hero Image</span>
-      <button class="switcher-toggle" onclick="this.parentElement.parentElement.classList.toggle('collapsed')">−</button>
+      <button class="switcher-toggle" onclick="
+        var el = this.parentElement.parentElement;
+        el.classList.toggle('collapsed');
+        this.textContent = el.classList.contains('collapsed') ? '+' : '−';
+      ">+</button>
     </div>
     <div class="switcher-options">
       <button class="switcher-btn" onclick="switchHeroImage('{{ '/images/images/hero_option_1.jpg' | url }}', this)">Option 1</button>
@@ -101,7 +105,7 @@ permalink: /
   
   <div class="container">
     <div class="hero-content">
-      <!-- Left: Hero Text -->
+      <!-- Left: Form and supporting content -->
       <div class="hero-text animate-fade-in">
 
         <a href="tel:{{ site.phone }}" class="mobile-phone-cta">
@@ -109,14 +113,147 @@ permalink: /
           {{ site.phoneFormatted }}
         </a>
         
-        <h1>Affordable Health Insurance <br> <span class="text-highlight" id="highlight-1">Made Simple</span></h1>
+        <!-- Title above form card -->
+        <h1 class="form-card-title">
+          <span class="h1-line">
+            <span class="h1-word">Compare</span>
+            <span class="h1-word">Top</span>
+            <span class="h1-word h1-california">California<span class="h1-underline"></span></span>
+          </span>
+          <span class="h1-line">
+            <span class="h1-word">Health</span>
+            <span class="h1-word">Plans</span>
+            <span class="h1-word">in</span>
+            <span class="h1-word h1-seconds">Seconds</span>
+          </span>
+        </h1>
+        <p class="form-card-subtitle">Free quotes • No spam • 9,300+ happy families</p>
         
-        <p>Compare top California health plans in seconds.<br>
-        <span class="text-highlight" id="highlight-2">See your subsidy savings instantly.</span><br>
-        No email or phone required.</p>
+        <!-- Quote Form (now in left column) -->
+        <div class="quote-form-card animate-fade-in animate-delay-1">
+          
+          <form id="quote-form">
+            <!-- Primary Applicant Section -->
+            <div class="form-section compact boxed" id="primary-section">
+              <div class="section-label">
+                <span>Primary Applicant</span>
+                <span class="section-check hidden" id="primary-check">✓</span>
+              </div>
+              
+              <!-- Row 1: Gender -->
+              <div class="form-row compact-row">
+                <div class="form-group compact-group" style="width:100%;">
+                  <label class="form-label-sm">Gender</label>
+                  <div class="gender-toggle compact" id="primary-gender-toggle">
+                    <button type="button" class="gender-btn compact" data-value="male">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                      <span>Male</span>
+                    </button>
+                    <button type="button" class="gender-btn compact" data-value="female">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                      <span>Female</span>
+                    </button>
+                  </div>
+                  <input type="hidden" name="primary_gender" id="primary_gender" required>
+                </div>
+              </div>
+
+              <!-- Row 2: DOB + Zip on same line -->
+              <div class="form-row compact-row" style="margin-bottom:0;">
+                <div class="form-group compact-group flex-grow">
+                  <label class="form-label-sm">Date of Birth</label>
+                  <div class="dob-inputs compact">
+                    <input type="text" class="dob-field compact dob-month" id="primary-dob-month" placeholder="mm" maxlength="2" inputmode="numeric" data-person="primary" required>
+                    <span class="dob-separator">/</span>
+                    <input type="text" class="dob-field compact dob-day" id="primary-dob-day" placeholder="dd" maxlength="2" inputmode="numeric" data-person="primary" required>
+                    <span class="dob-separator">/</span>
+                    <input type="text" class="dob-field compact dob-year" id="primary-dob-year" placeholder="yyyy" maxlength="4" inputmode="numeric" data-person="primary" required>
+                    <span class="dob-check hidden" id="dob-check">✓</span>
+                  </div>
+                </div>
+
+                <div class="form-group compact-group">
+                  <label class="form-label-sm">Zip Code</label>
+                  <div class="zip-input-wrapper compact-zip">
+                    <input type="text" id="zipcode" name="zipcode" class="form-input compact-input" placeholder="90210" maxlength="5" inputmode="numeric" required>
+                    <span class="zip-check-icon" id="zip-check">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Add Family Member Buttons -->
+            <div class="add-member-buttons compact" id="add-member-buttons">
+              <button type="button" class="add-member-btn compact" id="add-spouse">+ Spouse</button>
+              <button type="button" class="add-member-btn compact" id="add-child">+ Child</button>
+              <button type="button" class="add-member-btn compact" id="add-dependent">+ Dependent</button>
+            </div>
+            
+            <!-- Family Members Container -->
+            <div id="family-members-container"></div>
+            
+            <!-- Start Date Section - Appears after zip is valid -->
+            <div class="form-section compact hidden" id="start-date-section">
+              <div class="section-label">
+                <span>Coverage Start</span>
+                <span class="section-check hidden" id="start-check">✓</span>
+              </div>
+              <div class="start-date-options compact" id="start-date-options">
+                <!-- Populated by JS -->
+              </div>
+            </div>
+            
+            <!-- Discount Section - Appears after start date selected -->
+            <div class="form-section compact hidden" id="discount-section">
+              <div class="section-label">
+                <span>Check for Savings</span>
+                <span class="section-check hidden" id="discount-check">✓</span>
+              </div>
+              <div class="yes-no-toggle compact" id="discount-toggle">
+                <button type="button" class="toggle-btn compact" data-value="yes">Yes</button>
+                <button type="button" class="toggle-btn compact" data-value="no">No</button>
+              </div>
+              <input type="hidden" name="wants_discount" id="wants_discount">
+              
+              <!-- Income Section (shown if discount=yes) -->
+              <div class="income-section compact hidden" id="income-section">
+                <div class="income-row">
+                  <div class="form-group compact-group">
+                    <label class="form-label-sm">People on Tax Return</label>
+                    <input type="number" id="tax_household_size" name="tax_household_size" class="form-input compact-input small-input" placeholder="#" min="1" max="10">
+                  </div>
+                  <div class="form-group compact-group flex-grow">
+                    <label class="form-label-sm">Household Income</label>
+                    <div class="income-input-wrapper compact">
+                      <span class="income-prefix">$</span>
+                      <input type="text" id="income" name="income" class="form-input compact-input income-input" placeholder="65,000" inputmode="numeric">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Error Messages Container -->
+            <div class="form-errors hidden" id="form-errors">
+              <div class="error-message" id="error-message-text"></div>
+            </div>
+            
+            <button type="submit" class="btn btn-primary btn-submit btn-disabled" id="submit-btn" disabled>
+              Get Quotes Online
+            </button>
+            
+            <div class="form-trust compact">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+              Secure & Free
+            </div>
+          </form>
+        </div>
         
         <!-- Social Proof -->
-        <div class="hero-social-proof">
+        <div class="hero-social-proof animate-fade-in animate-delay-2">
           <div class="avatar-stack">
             <div class="avatar-stack-faces">
               <img src="{{ '/images/reviewers/dora.jpg' | url }}" alt="Dora S.">
@@ -138,39 +275,9 @@ permalink: /
             <span class="google-rating"><strong>5.0</strong> • <strong>9,300+</strong> reviews</span>
           </div>
         </div>
-
-        <!-- Stats Bar -->
-        <div class="stats-bar">
-          <div class="stat-item">
-            <div class="stat-icon reviews">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            </div>
-            <div class="stat-text">
-              <div class="stat-number">9,300+</div>
-              <div class="stat-label">5-Star Reviews</div>
-            </div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-icon helped">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
-            </div>
-            <div class="stat-text">
-              <div class="stat-number">500K+</div>
-              <div class="stat-label">People Helped</div>
-            </div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-icon rating">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
-            </div>
-            <div class="stat-text">
-              <div class="stat-number">A+</div>
-              <div class="stat-label">BBB Rating</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="trust-bar">
+        
+        <!-- Trust Badges -->
+        <div class="trust-bar animate-fade-in animate-delay-3">
           {% for badge in site.trustBadges %}
           <div class="trust-badge">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
@@ -180,140 +287,19 @@ permalink: /
         </div>
       </div>
       
-      <!-- Right: Quote Form -->
-      <div class="quote-form-card animate-fade-in animate-delay-2">
-        <h2>Get Your Free Quote</h2>
-        <p class="form-subtitle">No email or phone required</p>
-        
-        <form id="quote-form">
-          <!-- Primary Applicant Section -->
-          <div class="form-section compact boxed" id="primary-section">
-            <div class="section-label">
-              <span>Primary Applicant</span>
-              <span class="section-check hidden" id="primary-check">✓</span>
-            </div>
-            
-            <!-- Compact Row: Gender + DOB + Zip -->
-            <div class="form-row compact-row">
-              <div class="form-group compact-group">
-                <label class="form-label-sm">Gender</label>
-                <div class="gender-toggle compact" id="primary-gender-toggle">
-                  <button type="button" class="gender-btn compact" data-value="male">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-                    <span>Male</span>
-                  </button>
-                  <button type="button" class="gender-btn compact" data-value="female">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-                    <span>Female</span>
-                  </button>
-                </div>
-                <input type="hidden" name="primary_gender" id="primary_gender" required>
-              </div>
-              
-              <div class="form-group compact-group flex-grow">
-                <label class="form-label-sm">Date of Birth</label>
-                <div class="dob-inputs compact">
-                  <input type="text" class="dob-field compact dob-month" id="primary-dob-month" placeholder="mm" maxlength="2" inputmode="numeric" data-person="primary" required>
-                  <span class="dob-separator">/</span>
-                  <input type="text" class="dob-field compact dob-day" id="primary-dob-day" placeholder="dd" maxlength="2" inputmode="numeric" data-person="primary" required>
-                  <span class="dob-separator">/</span>
-                  <input type="text" class="dob-field compact dob-year" id="primary-dob-year" placeholder="yyyy" maxlength="4" inputmode="numeric" data-person="primary" required>
-                  <span class="dob-check hidden" id="dob-check">✓</span>
-                </div>
-              </div>
-
-              <!-- Zip Code -->
-              <div class="form-group compact-group">
-                <label class="form-label-sm">Zip Code</label>
-                <div class="zip-input-wrapper compact-zip">
-                  <input type="text" id="zipcode" name="zipcode" class="form-input compact-input" placeholder="90210" maxlength="5" inputmode="numeric" required>
-                  <span class="zip-check-icon" id="zip-check">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-                  </span>
-                </div>
-              </div>
-            </div>
-            
-
-          </div>
-          
-          <!-- Add Family Member Buttons -->
-          <div class="add-member-buttons compact" id="add-member-buttons">
-            <button type="button" class="add-member-btn compact" id="add-spouse">+ Spouse</button>
-            <button type="button" class="add-member-btn compact" id="add-child">+ Child</button>
-            <button type="button" class="add-member-btn compact" id="add-dependent">+ Dependent</button>
-          </div>
-          
-          <!-- Family Members Container -->
-          <div id="family-members-container"></div>
-          
-          <!-- Start Date Section - Appears after zip is valid -->
-          <div class="form-section compact hidden" id="start-date-section">
-            <div class="section-label">
-              <span>Coverage Start</span>
-              <span class="section-check hidden" id="start-check">✓</span>
-            </div>
-            <div class="start-date-options compact" id="start-date-options">
-              <!-- Populated by JS -->
-            </div>
-          </div>
-          
-          <!-- Discount Section - Appears after start date selected -->
-          <div class="form-section compact hidden" id="discount-section">
-            <div class="section-label">
-              <span>Check for Savings</span>
-              <span class="section-check hidden" id="discount-check">✓</span>
-            </div>
-            <div class="yes-no-toggle compact" id="discount-toggle">
-              <button type="button" class="toggle-btn compact" data-value="yes">Yes</button>
-              <button type="button" class="toggle-btn compact" data-value="no">No</button>
-            </div>
-            <input type="hidden" name="wants_discount" id="wants_discount">
-            
-            <!-- Income Section (shown if discount=yes) -->
-            <div class="income-section compact hidden" id="income-section">
-              <div class="income-row">
-                <div class="form-group compact-group">
-                  <label class="form-label-sm">People on Tax Return</label>
-                  <input type="number" id="tax_household_size" name="tax_household_size" class="form-input compact-input small-input" placeholder="#" min="1" max="10">
-                </div>
-                <div class="form-group compact-group flex-grow">
-                  <label class="form-label-sm">Household Income</label>
-                  <div class="income-input-wrapper compact">
-                    <span class="income-prefix">$</span>
-                    <input type="text" id="income" name="income" class="form-input compact-input income-input" placeholder="65,000" inputmode="numeric">
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Error Messages Container -->
-          <div class="form-errors hidden" id="form-errors">
-            <div class="error-message" id="error-message-text"></div>
-          </div>
-          
-          <button type="submit" class="btn btn-primary btn-submit btn-disabled" id="submit-btn" disabled>
-            Get Quotes Online
-          </button>
-          
-          <div class="form-trust compact">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
-            Secure & Free
-          </div>
-        </form>
-      </div>
+      <!-- Right: Empty for family visibility -->
+      <div class="hero-right-spacer"></div>
     </div>
     
     <!-- Carriers Section (inside hero) -->
-    <div class="hero-carriers">
+    <div class="hero-carriers animate-fade-in animate-delay-4">
       <p class="carriers-title">Compare Plans from Top California Carriers</p>
       <div class="carriers-grid">
         <div class="carrier-item"><img src="https://s3-us-west-1.amazonaws.com/hp-prod-wp-data/content/uploads/kaiser-small.png" alt="Kaiser Permanente"></div>
         <div class="carrier-item"><img src="https://s3-us-west-1.amazonaws.com/hp-prod-wp-data/content/uploads/anthem-small.png" alt="Anthem Blue Cross"></div>
         <div class="carrier-item"><img src="https://s3-us-west-1.amazonaws.com/hp-prod-wp-data/content/uploads/blue-of-california-small.png" alt="Blue Shield of California"></div>
         <div class="carrier-item"><img src="https://s3-us-west-1.amazonaws.com/hp-prod-wp-data/content/uploads/healthnet-small.png" alt="Health Net"></div>
-        <div class="carrier-item carrier-oscar"><img src="https://hp-prod-wp-data.s3.us-west-1.amazonaws.com/content/uploads/oscar-logo.jpg" alt="Oscar Health"></div>
+        <div class="carrier-item carrier-oscar"><img src="{{ '/images/logos/oscar.png' | url }}" alt="Oscar Health"></div>
         <div class="carrier-item"><img src="https://s3-us-west-1.amazonaws.com/hp-prod-wp-data/content/uploads/molina-small.png" alt="Molina Healthcare"></div>
       </div>
     </div>
@@ -514,9 +500,9 @@ permalink: /
       </p>
       
       <div class="footer-links">
-        <a href="/privacy/">Privacy Policy</a>
-        <a href="/terms/">Terms of Use</a>
-        <a href="/contact/">Contact Us</a>
+        <a href="{{ '/privacy/' | url }}">Privacy Policy</a>
+        <a href="{{ '/terms/' | url }}">Terms of Use</a>
+        <a href="{{ '/contact/' | url }}">Contact Us</a>
       </div>
     </div>
   </div>

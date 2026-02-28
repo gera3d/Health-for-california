@@ -587,7 +587,7 @@ p {
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
-  padding-top: 80px;
+  padding-top: clamp(2rem, 5vw, 4rem);
   overflow: hidden;
 }
 
@@ -613,24 +613,45 @@ p {
    ================================================================= */
 
 .hero-image-switcher {
-  display: block;
-  /* Hidden by default - dev tool only */
   position: fixed;
-  top: 100px;
+  bottom: 24px;
   left: 20px;
+  top: auto;
   z-index: 9999;
-  background: rgba(255, 255, 255, 0.98);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
   border-radius: 12px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
   padding: 12px;
   font-family: var(--font-primary);
-  font-size: 12px;
-  max-width: 180px;
-  transition: all 0.3s ease;
+  font-size: 11px;
+  max-width: 165px;
+  transition: all 0.25s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.hero-image-switcher:hover {
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.25);
+}
+
+/* Collapsed: shrink to just a tiny pill header */
+.hero-image-switcher.collapsed {
+  padding: 6px 10px;
+  opacity: 0.3;
+}
+
+.hero-image-switcher.collapsed:hover {
+  opacity: 0.85;
+}
+
+.hero-image-switcher.collapsed .switcher-header {
+  margin-bottom: 0;
 }
 
 .hero-image-switcher.collapsed .switcher-options,
-.hero-image-switcher.collapsed .switcher-position {
+.hero-image-switcher.collapsed .switcher-position,
+.hero-image-switcher.collapsed .switcher-scale {
   display: none;
 }
 
@@ -767,15 +788,89 @@ p {
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  /* Equal columns to give form more space */
+  grid-template-columns: 45% 1fr;
+  /* Left column has text+form, right is empty for family visibility */
   gap: var(--space-3xl);
-  align-items: center;
+  align-items: start;
+}
+
+/* Empty spacer on right to let background image show through */
+.hero-right-spacer {
+  min-height: 1px;
+  /* Placeholder to maintain grid column */
 }
 
 .hero-text {
   color: var(--hfc-white);
-  padding-top: var(--space-xl);
+}
+
+/* Full-width headline at top of hero */
+.hero-headline {
+  width: 100%;
+  margin-top: var(--space-xl);
+  margin-bottom: var(--space-3xl);
+  position: relative;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-headline h1 {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  font-size: clamp(1.6rem, 3.5vw, 2.75rem);
+  font-weight: 900;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+  flex-wrap: wrap;
+  text-shadow:
+    0 0 20px rgba(255, 255, 255, 0.3),
+    0 2px 4px rgba(0, 0, 0, 0.9),
+    0 4px 12px rgba(0, 0, 0, 0.7),
+    0 8px 24px rgba(0, 0, 0, 0.5);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Form explainer text at top of form card */
+.form-explainer {
+  font-size: 0.95rem;
+  color: #1e3a5f !important;
+  margin: 0 0 var(--space-sm) 0;
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.3);
+  line-height: 1.4;
+  font-weight: 500;
+  text-align: center;
+}
+
+.form-explainer .text-highlight {
+  background-color: var(--hfc-yellow);
+  color: var(--hfc-white) !important;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 4px;
+  display: inline-block;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(251, 191, 36, 0.3);
+}
+
+/* Hero headline "Made Simple" highlight */
+.hero-headline .text-highlight {
+  background-color: #ffc800;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  padding: 0.1em 0.4em;
+  border-radius: 6px;
+  font-weight: 900;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 .hero-text h1 {
@@ -896,15 +991,67 @@ p {
   margin-bottom: var(--space-md);
 }
 
+/* Title above form card */
+.form-card-title {
+  color: var(--hfc-white);
+  font-size: clamp(2rem, 3.8vw, 3rem);
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 0 0 var(--space-sm) 0;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  max-width: 100%;
+  opacity: 0;
+  transform: translateY(16px);
+  animation: heroFadeUp 0.6s ease-out 0.05s forwards;
+}
+
+@keyframes heroFadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Span helpers — display only, no animation */
+.h1-line {
+  display: block;
+}
+
+.h1-word {
+  display: inline;
+}
+
+.h1-california,
+.h1-seconds {
+  display: inline;
+}
+
+.h1-underline {
+  display: none;
+}
+
+/* Supporting subheadline fades in just after the title */
+.form-card-subtitle {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  margin: 0 0 var(--space-xl) 0;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  animation: heroFadeUp 0.6s ease-out 0.25s forwards;
+}
+
 .quote-form-card {
   background: var(--hfc-white);
   border-radius: var(--radius-lg);
-  padding: var(--space-lg) var(--space-lg) var(--space-md);
+  padding: var(--space-xl) var(--space-xl) var(--space-lg);
   box-shadow: var(--shadow-xl);
-  /* Pop-up animation: starts hidden, slides up after text reveals complete */
+  /* Pop-up animation: starts hidden, slides up shortly after headline */
   opacity: 0;
-  transform: translateY(60px);
-  animation: quoteFormPopUp 0.8s ease-out 5s forwards;
+  transform: translateY(40px);
+  animation: quoteFormPopUp 0.6s ease-out 0.2s forwards;
 }
 
 @keyframes quoteFormPopUp {
@@ -998,6 +1145,8 @@ p {
   font-family: var(--font-primary);
   font-size: 1rem;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  caret-color: transparent;
+  /* Remove blinking cursor */
 }
 
 .form-input:focus {
@@ -1012,8 +1161,8 @@ p {
   font-size: 1rem;
   font-weight: 600;
   /* Match input text weight */
-  opacity: 0.6;
-  /* Slight transparency for placeholder distinction, but size matches */
+  opacity: 0.75;
+  /* Increased for better accessibility */
 }
 
 .form-row {
@@ -1028,14 +1177,15 @@ p {
 
 /* Section Label */
 .section-label {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--hfc-gray-dark);
+  letter-spacing: 0.12em;
+  color: var(--hfc-dark-blue);
   margin-bottom: var(--space-md);
-  padding-bottom: var(--space-sm);
-  border-bottom: 1px solid var(--hfc-gray-medium);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 /* Gender Toggle Buttons */
@@ -1222,6 +1372,7 @@ p {
 
 .add-member-btn:hover {
   color: var(--hfc-blue);
+  transform: scale(1.02);
 }
 
 .add-member-btn svg {
@@ -1672,8 +1823,7 @@ p {
 
 /* Compact Form Section */
 .form-section.compact {
-  margin-bottom: var(--space-lg);
-  /* ↑ 24px - Major sections need more air */
+  margin-bottom: 8px;
 }
 
 .form-section.compact.boxed {
@@ -1733,13 +1883,10 @@ p {
 /* Compact Row Layout */
 .compact-row {
   display: flex;
-  gap: 10px;
-  /* Reduced from 16px to prevent overflow */
+  gap: 8px;
   align-items: flex-end;
   flex-wrap: nowrap;
-  /* Force one line as requested */
   margin-bottom: 8px;
-  /* NEW - Control row-to-group spacing */
 }
 
 .compact-group {
@@ -1755,9 +1902,8 @@ p {
 }
 
 .flex-grow {
-  flex: 1;
-  min-width: 120px;
-  /* DOB field needs at least 120px to fit content */
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .label-subtitle {
@@ -1778,8 +1924,8 @@ p {
   /* Slightly larger for readability */
   font-weight: 600;
   color: var(--hfc-dark-blue);
-  margin-bottom: 8px;
-  /* ↑ from 6px - More breathing room between label and input */
+  margin-bottom: 6px;
+  /* More breathing room between label and input */
   white-space: nowrap;
 }
 
@@ -1791,9 +1937,12 @@ p {
 
 .gender-btn.compact {
   width: auto;
-  min-width: 40px;
-  height: 40px;
-  padding: 0 8px;
+  min-width: 60px;
+  /* Increased from 40px */
+  height: 48px;
+  /* Increased from 40px */
+  padding: 0 16px;
+  /* Increased from 8px */
   gap: 2px;
   display: flex;
   align-items: center;
@@ -1831,12 +1980,7 @@ p {
   }
 }
 
-.attention-glow {
-  /* Fast pulse (1.5s) with cubic-bezier for 'heartbeat' feel */
-  animation: attentionPulse 1.5s infinite cubic-bezier(0.4, 0, 0.2, 1);
-  border-color: var(--hfc-yellow) !important;
-  z-index: 1;
-}
+
 
 .gender-btn.compact:hover {
   border-color: var(--hfc-light-blue);
@@ -1864,12 +2008,13 @@ p {
   align-items: center;
   gap: 0;
   position: relative;
-  /* Single field appearance - border on container */
   background: white;
   border: 2px solid var(--hfc-gray-medium);
   border-radius: var(--radius-md);
   padding: 0 4px;
-  height: 40px;
+  height: 48px;
+  width: 100%;
+  overflow: visible;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -1888,7 +2033,7 @@ p {
   height: 36px;
   padding: 0;
   text-align: center;
-  font-size: 1rem !important;
+  font-size: 0.875rem !important;
   font-family: var(--font-primary) !important;
   font-weight: 600 !important;
   color: var(--hfc-dark-blue);
@@ -1906,7 +2051,7 @@ p {
 
 /* Ensure placeholder matches input text size exactly */
 .dob-field.compact::placeholder {
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-family: var(--font-primary);
   font-weight: 600;
   color: var(--hfc-gray-dark);
@@ -1915,18 +2060,18 @@ p {
 
 .dob-field.compact.dob-month,
 .dob-field.compact.dob-day {
-  width: 28px;
+  width: 24px;
 }
 
 .dob-field.compact.dob-year {
-  width: 42px;
+  width: 46px;
 }
 
 /* Static separator styling */
 .dob-inputs.compact .dob-separator {
   color: var(--hfc-gray-dark);
-  font-size: 1rem;
-  font-weight: 400;
+  font-size: 0.875rem;
+  font-weight: 500;
   padding: 0 2px;
 }
 
@@ -1993,16 +2138,32 @@ p {
 
 /* Compact Zip Input */
 .compact-zip {
-  width: 80px;
-  min-width: 80px;
+  width: 100px;
+  min-width: 100px;
+  flex-shrink: 0;
+}
+
+/* Full-width zip row (two-row layout) */
+.zip-full-row {
+  width: 100%;
+}
+
+.compact-zip-full {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.compact-zip-full .form-input.compact-input {
+  width: 100%;
 }
 
 .form-input.compact-input {
   padding: 10px 12px;
-  /* Center text vertically in 40px height */
+  /* Center text vertically in 48px height */
   font-size: 1rem;
   /* Standard 16px */
-  height: 40px;
+  height: 48px;
   /* Match others */
   border: 2px solid var(--hfc-gray-medium);
   border-radius: var(--radius-md);
@@ -2059,7 +2220,7 @@ p {
   /* Ensure vertical center */
   align-items: center;
   justify-content: center;
-  height: 40px;
+  height: 48px;
   /* Match Gender/DOB */
   font-size: 1rem;
   /* Standard */
@@ -2090,18 +2251,15 @@ p {
 /* Compact Add Member Buttons */
 .add-member-buttons.compact {
   display: flex;
-  gap: 12px;
-  margin: var(--space-md) 0;
-  /* ↑ 16px - Clear separation from boxed section */
-  padding: var(--space-sm) 0;
-  border-top: 1px dashed var(--hfc-gray-medium);
-  border-bottom: 1px dashed var(--hfc-gray-medium);
+  gap: 8px;
+  margin: 8px 0;
+  padding: 4px 0;
 }
 
 .add-member-btn.compact {
   padding: 6px 14px;
-  font-size: 0.75rem;
-  font-weight: 600;
+  font-size: 0.85rem;
+  font-weight: 700;
   color: var(--hfc-dark-blue);
   background: white;
   border: 2px solid var(--hfc-gray-medium);
@@ -2130,7 +2288,7 @@ p {
 
 .start-date-btn {
   padding: 0 16px;
-  height: 40px;
+  height: 48px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -2193,11 +2351,19 @@ p {
 /* Submit Button */
 .btn-submit {
   width: 100%;
-  margin-top: var(--space-lg);
-  /* ↑ 24px - Clear CTA separation */
-  padding: 11px 18px;
-  font-size: 0.95rem;
+  margin-top: var(--space-md);
+  padding: 16px 24px;
+  font-size: 1.05rem;
   font-weight: 700;
+  background: var(--hfc-blue);
+  box-shadow: 0 4px 12px rgba(30, 101, 160, 0.25);
+  transition: all 0.3s ease;
+}
+
+.btn-submit:hover:not(.btn-disabled) {
+  background: var(--hfc-dark-blue);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(30, 101, 160, 0.35);
 }
 
 /* Compact Form Trust */
@@ -2345,15 +2511,19 @@ p {
 }
 
 .btn-secondary {
-  background: transparent;
+  background: var(--hfc-red);
   color: var(--hfc-white);
-  border: 2px solid var(--hfc-white);
+  border: 2px solid var(--hfc-red);
+  box-shadow: 0 4px 14px rgba(250, 95, 91, 0.3);
+  transition: all 0.3s ease;
 }
 
 .btn-secondary:hover {
-  background: var(--hfc-yellow);
-  border-color: var(--hfc-yellow);
-  color: var(--hfc-dark-blue);
+  background: var(--hfc-red-hover);
+  border-color: var(--hfc-red-hover);
+  color: var(--hfc-white);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(250, 95, 91, 0.4);
 }
 
 /* =================================================================
@@ -3090,19 +3260,32 @@ p {
 }
 
 .animate-fade-in {
-  animation: fadeInUp 0.6s ease forwards;
+  opacity: 0;
+  animation: fadeInUp 0.7s ease forwards;
 }
 
 .animate-delay-1 {
-  animation-delay: 0.1s;
+  animation-delay: 0.2s;
 }
 
 .animate-delay-2 {
-  animation-delay: 6s;
+  animation-delay: 0.4s;
 }
 
 .animate-delay-3 {
-  animation-delay: 0.3s;
+  animation-delay: 0.6s;
+}
+
+.animate-delay-4 {
+  animation-delay: 0.8s;
+}
+
+.animate-delay-5 {
+  animation-delay: 1.0s;
+}
+
+.animate-delay-6 {
+  animation-delay: 1.2s;
 }
 
 /* =================================================================
@@ -3112,8 +3295,8 @@ p {
 .quote-form-card {
   background: rgba(255, 255, 255, 0.98);
   border-radius: var(--radius-xl);
-  padding: var(--space-2xl);
-  /* Layered Material Design shadows */
+  padding: var(--space-lg) var(--space-xl);
+  /* Reduced from 2xl to save vertical height */
   box-shadow:
     0 1px 3px rgba(15, 49, 78, 0.12),
     0 4px 6px rgba(15, 49, 78, 0.08),
@@ -3126,13 +3309,7 @@ p {
 }
 
 .quote-form-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: var(--gradient-accent);
+  display: none;
 }
 
 .quote-form-card h2 {
@@ -3321,11 +3498,14 @@ p {
 }
 
 .hero-carriers .carrier-item img {
-  max-height: 32px;
+  max-height: 42px;
+  /* Increased slightly for better visibility */
   width: auto;
-  opacity: 0.9;
   filter: brightness(0) invert(1);
-  transition: all 0.4s ease;
+  /* Makes the logo solid white */
+  opacity: 0.85;
+  /* Slight transparency to blend better */
+  transition: all 0.3s ease;
 }
 
 .hero-carriers .carrier-item:hover img {
@@ -3333,14 +3513,11 @@ p {
   transform: scale(1.08);
 }
 
-/* Oscar logo special handling - JPG with white background needs different treatment */
+/* Oscar logo - uses same filter as other logos with proper transparent PNG */
 .hero-carriers .carrier-item.carrier-oscar img {
-  filter: none;
-  opacity: 1;
-  background: white;
-  padding: 6px 12px;
-  border-radius: var(--radius-full);
-  max-height: 36px;
+  filter: brightness(0) invert(1);
+  opacity: 0.85;
+  max-height: 40px;
 }
 
 
@@ -4234,12 +4411,12 @@ p {
 }
 
 .testimonial-quote blockquote {
-  font-size: clamp(1.75rem, 4vw, 2.5rem);
-  font-weight: 600;
-  font-style: italic;
-  line-height: 1.4;
+  font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+  font-weight: 500;
+  font-style: normal;
+  line-height: 1.6;
   color: var(--hfc-dark-blue);
-  margin: 0 0 var(--space-xl);
+  margin: 0 0 var(--space-lg);
   position: relative;
   margin-left: auto;
   margin-right: auto;
@@ -4417,11 +4594,11 @@ button.stacked-face.active {
   animation: heroFadeIn 0.35s ease-out 0.6s forwards;
 }
 
-/* Form card - slides up after text highlights complete */
+/* Form card - slides up shortly after headline */
 .quote-form-card {
   opacity: 0;
-  transform: translateY(60px);
-  animation: quoteFormPopUp 0.8s ease-out 5s forwards;
+  transform: translateY(40px);
+  animation: quoteFormPopUp 0.6s ease-out 0.2s forwards;
 }
 
 @media (max-width: 640px) {
@@ -4440,4 +4617,46 @@ button.stacked-face.active {
     height: 36px;
     font-size: 0.6rem;
   }
+}
+
+/* =================================================================
+   HOVER FLICKER FIXES
+   ================================================================= */
+
+/* Hardware acceleration to prevent browser repainting blinks */
+.feature-card,
+.tier-card,
+.testimonial-card,
+.carrier-item,
+.btn-primary,
+.btn-secondary,
+.btn-submit,
+.btn-pill,
+.btn-shop,
+.carousel-card,
+.faq-item {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  /* Prevent 'jump' flicker on start of animation */
+  will-change: transform, box-shadow;
+}
+
+/* Extend hit areas to prevent mouse-leave when elements transform up */
+.feature-card::after,
+.tier-card::after,
+.testimonial-card::after,
+.carrier-item::after,
+.btn-primary::after,
+.btn-secondary::after,
+.btn-submit::after,
+.btn-pill::after,
+.btn-shop::after {
+  content: '';
+  position: absolute;
+  top: -10px;
+  bottom: -20px;
+  /* Extend downward specifically for translateY */
+  left: -10px;
+  right: -10px;
+  z-index: -1;
 }
