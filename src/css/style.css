@@ -210,7 +210,6 @@ p {
 
 .logo-hfc {
   height: 72px;
-  /* Increased for visibility */
   width: auto;
   display: block;
   filter: brightness(0) invert(1);
@@ -994,12 +993,13 @@ p {
 /* Title above form card */
 .form-card-title {
   color: var(--hfc-white);
-  font-size: clamp(2rem, 3.8vw, 3rem);
+  font-size: clamp(2.6rem, 5vw, 4rem);
   font-weight: 900;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
+  line-height: 1.15;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   margin: 0 0 var(--space-sm) 0;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
   max-width: 100%;
   opacity: 0;
   transform: translateY(16px);
@@ -1013,15 +1013,24 @@ p {
   }
 }
 
-/* Span helpers — display only, no animation */
+/* Both lines same size — no imbalance */
 .h1-line {
   display: block;
 }
 
-.h1-word {
-  display: inline;
+/* "California" — italic amber serif accent */
+.h1-california-em {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-style: italic;
+  font-weight: 400;
+  text-transform: none;
+  color: #E8A83E;
+  letter-spacing: 0;
+  font-size: 1.05em;
 }
 
+/* Legacy helpers — no-op */
+.h1-word,
 .h1-california,
 .h1-seconds {
   display: inline;
@@ -1031,13 +1040,13 @@ p {
   display: none;
 }
 
-/* Supporting subheadline fades in just after the title */
+/* Subtitle */
 .form-card-subtitle {
-  color: rgba(255, 255, 255, 0.72);
-  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.88rem;
   font-weight: 500;
-  letter-spacing: 0.02em;
-  margin: 0 0 var(--space-xl) 0;
+  letter-spacing: 0.04em;
+  margin: 0 0 var(--space-lg) 0;
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
   opacity: 0;
   animation: heroFadeUp 0.6s ease-out 0.25s forwards;
@@ -2465,15 +2474,16 @@ p {
 
 /* Disabled Submit Button */
 .btn-disabled {
-  background: var(--hfc-gray-medium) !important;
-  color: var(--hfc-gray-dark) !important;
+  background: rgba(30, 101, 160, 0.18) !important;
+  color: rgba(30, 101, 160, 0.55) !important;
   cursor: not-allowed !important;
   box-shadow: none !important;
   transform: none !important;
+  border: 1px solid rgba(30, 101, 160, 0.2) !important;
 }
 
 .btn-disabled:hover {
-  background: var(--hfc-gray-medium) !important;
+  background: rgba(30, 101, 160, 0.18) !important;
   transform: none !important;
 }
 
@@ -2879,8 +2889,8 @@ p {
   }
 
   .header-inner {
-    justify-content: center;
-    padding: var(--space-sm) 0;
+    justify-content: space-between;
+    padding: 0 20px;
   }
 
   .logo-group {
@@ -2918,18 +2928,15 @@ p {
   }
 
   .mobile-phone-cta {
-    display: inline-flex;
-    margin-bottom: var(--space-lg);
-    padding: 12px 20px;
-    font-size: 0.875rem;
-    min-height: 44px;
-    /* iOS touch target */
+    display: none !important;
   }
 
-  .hero-text h1 {
-    font-size: clamp(1.5rem, 6vw, 2rem);
-    line-height: 1.25;
+  .hero-text h1,
+  .form-card-title {
+    font-size: clamp(1.9rem, 7vw, 2.6rem);
+    line-height: 1.15;
     margin-bottom: var(--space-sm);
+    text-align: left;
   }
 
   .hero-text p {
@@ -3200,14 +3207,29 @@ p {
     height: 28px !important;
   }
 
-  /* Hide header phone on mobile - use mobile CTA instead */
-  .header-phone {
-    display: none;
+  /* Keep mobile-phone-cta in hero hidden — use header Call Us pill */
+  .mobile-phone-cta {
+    display: none !important;
   }
 
-  /* Show mobile phone CTA in hero */
-  .mobile-phone-cta {
-    display: inline-flex;
+  /* Keep the header Call pill visible at small sizes — shrink it */
+  .btn-pill {
+    font-size: 0.78rem;
+    padding: 8px 14px;
+  }
+
+  /* Shrink logos on small screens */
+  .logo-hfc {
+    height: 48px;
+  }
+
+  .logo-cc {
+    height: 48px;
+  }
+
+  .logo-divider {
+    height: 36px;
+    margin: 0 12px;
   }
 
   .trust-bar {
@@ -3510,7 +3532,7 @@ p {
 
 .hero-carriers .carrier-item:hover img {
   opacity: 1;
-  transform: scale(1.08);
+  filter: brightness(0) invert(1);
 }
 
 /* Oscar logo - uses same filter as other logos with proper transparent PNG */
@@ -3547,8 +3569,7 @@ p {
 
 .carrier-item:hover img {
   opacity: 1;
-  filter: grayscale(0%) saturate(1.1);
-  transform: scale(1.08);
+  filter: grayscale(30%) saturate(0.9);
 }
 
 .carrier-logo {
@@ -3884,6 +3905,8 @@ p {
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
+  z-index: 1;
+  pointer-events: none;
 }
 
 .scroll-indicator svg {
@@ -4389,9 +4412,9 @@ p {
    ================================================================= */
 
 .testimonial-showcase {
-  margin: 0 auto var(--space-2xl);
+  margin: 0 auto var(--space-lg);
   text-align: center;
-  min-height: 250px;
+  min-height: 180px;
 }
 
 .testimonial-quote {
